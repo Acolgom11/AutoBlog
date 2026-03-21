@@ -1,11 +1,16 @@
 import { ArticleCard } from "@/components/ui/ArticleCard";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { AdComponent } from "@/components/ads/AdComponent";
-import { mockArticles } from "@/lib/data";
+import { getAllArticles } from "@/lib/mdx";
+import Link from "next/link";
 
 export default function Home() {
-  const featuredArticle = mockArticles[0];
-  const latestArticles = mockArticles.slice(1);
+  const articles = getAllArticles();
+  
+  if (articles.length === 0) return <div className="container py-8">No articles found.</div>;
+
+  const featuredArticle = articles[0];
+  const latestArticles = articles.slice(1, 5); // show next 4
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -35,11 +40,13 @@ export default function Home() {
               ))}
             </div>
             
-            <div className="mt-8 flex justify-center">
-              <button className="px-6 py-3 rounded-full border border-border bg-card hover:bg-brand hover:text-white hover:border-brand transition-all font-medium shadow-sm">
-                Load More Articles
-              </button>
-            </div>
+            {articles.length > 1 && (
+              <div className="mt-8 flex justify-center">
+                <Link href="/blog" className="px-6 py-3 rounded-full border border-border bg-card hover:bg-brand hover:text-white hover:border-brand transition-all font-medium shadow-sm">
+                  View All Articles
+                </Link>
+              </div>
+            )}
           </section>
 
           {/* Middle Ad */}

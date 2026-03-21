@@ -1,14 +1,11 @@
 import { AdComponent } from "../ads/AdComponent";
+import { Newsletter } from "../ui/Newsletter";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
+import { getCategories } from "@/lib/mdx";
 
 export function Sidebar() {
-  const categories = [
-    { name: "Car Reviews", count: 24, href: "/category/reviews" },
-    { name: "Electric Vehicles", count: 18, href: "/category/electric" },
-    { name: "Budget Options", count: 12, href: "/category/budget" },
-    { name: "Buying Guides", count: 9, href: "/category/guides" },
-  ];
+  const categories = getCategories();
 
   return (
     <aside className="space-y-8 lg:w-80 flex-shrink-0 w-full hidden md:block">
@@ -17,7 +14,7 @@ export function Sidebar() {
         <ul className="space-y-3">
           {categories.map((category) => (
              <li key={category.name}>
-                <Link href={category.href} className="group flex items-center justify-between py-1 transition-colors">
+                <Link href={`/category/${category.slug}`} className="group flex items-center justify-between py-1 transition-colors">
                   <span className="text-muted-foreground group-hover:text-brand font-medium">{category.name}</span>
                   <span className="flex items-center text-xs text-muted-foreground">
                     <span className="bg-muted px-2 py-0.5 rounded-full mr-2 group-hover:bg-brand/10 group-hover:text-brand transition-colors">{category.count}</span>
@@ -28,6 +25,8 @@ export function Sidebar() {
           ))}
         </ul>
       </div>
+
+      <Newsletter />
 
       <div className="sticky top-24">
         <div className="rounded-xl border border-border bg-card p-6 shadow-sm">

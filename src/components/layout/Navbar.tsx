@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ThemeToggle } from "../ui/ThemeToggle";
+import { SearchBar } from "../ui/SearchBar";
 import { Car } from "lucide-react";
 
 export function Navbar() {
@@ -11,14 +12,14 @@ export function Navbar() {
           <span className="font-bold text-xl tracking-tight">AutoBlog</span>
         </Link>
         <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
-          <Link href="/category/reviews" className="hover:text-brand transition-colors">Reviews</Link>
-          <Link href="/category/electric" className="hover:text-brand transition-colors">Electric</Link>
-          <Link href="/category/budget" className="hover:text-brand transition-colors">Budget</Link>
+          <Link href="/blog" className="hover:text-brand transition-colors">All Posts</Link>
+          <Link href="/category/buying-guides" className="hover:text-brand transition-colors">Guides</Link>
+          <Link href="/category/electric-vehicles" className="hover:text-brand transition-colors">Electric</Link>
           <Link href="/about" className="hover:text-brand transition-colors">About</Link>
         </nav>
         <div className="flex items-center gap-4">
+          <SearchBar />
           <ThemeToggle />
-          {/* Mobile menu toggle could go here */}
         </div>
       </div>
     </header>

@@ -4,7 +4,7 @@ import { CalendarDays, Clock } from "lucide-react";
 
 interface ArticleCardProps {
   title: string;
-  excerpt: string;
+  description: string;
   category: string;
   date: string;
   readTime: string;
@@ -15,7 +15,7 @@ interface ArticleCardProps {
 
 export function ArticleCard({
   title,
-  excerpt,
+  description,
   category,
   date,
   readTime,
@@ -47,7 +47,7 @@ export function ArticleCard({
             </h3>
           </Link>
           <p className="mt-3 text-muted-foreground line-clamp-3">
-            {excerpt}
+            {description}
           </p>
         </div>
         <div className="mt-5 flex items-center gap-4 text-xs text-muted-foreground">

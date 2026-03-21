@@ -1,17 +1,20 @@
 import { MetadataRoute } from "next";
-import { mockArticles, mockCategories } from "@/lib/data";
+import { getAllArticles, getCategories } from "@/lib/mdx";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://www.autoblog.com"; // normally an env var
+  const baseUrl = "https://www.autoblog.com";
 
-  const articles = mockArticles.map((article) => ({
+  const articlesObj = getAllArticles();
+  const categoriesObj = getCategories();
+
+  const articles = articlesObj.map((article) => ({
     url: `${baseUrl}/blog/${article.slug}`,
     lastModified: new Date(article.date),
     changeFrequency: "weekly" as const,
     priority: 0.8,
   }));
 
-  const categories = mockCategories.map((category) => ({
+  const categories = categoriesObj.map((category) => ({
     url: `${baseUrl}/category/${category.slug}`,
     lastModified: new Date(),
     changeFrequency: "daily" as const,
@@ -24,6 +27,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: "daily",
       priority: 1,
+    },
+    {
+      url: `${baseUrl}/blog`,
+      lastModified: new Date(),
+      changeFrequency: "daily",
+      priority: 0.9,
     },
     {
       url: `${baseUrl}/about`,
