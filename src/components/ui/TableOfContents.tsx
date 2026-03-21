@@ -5,7 +5,7 @@ export function TableOfContents({ items }: { items: TOCItem[] }) {
 
   return (
     <div className="bg-muted/30 border border-border rounded-xl p-6 mb-10 w-full shadow-sm sticky top-24">
-      <h2 className="font-bold text-lg mb-4 text-foreground">Table of Contents</h2>
+      <h2 className="font-bold text-lg mb-4 text-foreground">Tabla de Contenidos</h2>
       <ul className="space-y-3 text-sm">
         {items.map((item) => (
           <li

@@ -60,7 +60,7 @@ export function SearchBar() {
         <Search className="absolute left-3 h-4 w-4 text-muted-foreground" />
         <input
           type="text"
-          placeholder="Search articles..."
+          placeholder="Buscar artículos..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => { if (query.length >= 2) setIsOpen(true) }}
@@ -88,7 +88,7 @@ export function SearchBar() {
       )}
       {isOpen && query.length >= 2 && results.length === 0 && (
         <div className="absolute top-12 right-0 w-full sm:w-80 rounded-md border border-border bg-card shadow-lg z-50 p-4 text-center text-sm text-muted-foreground">
-          No articles found for &quot;{query}&quot;.
+          No se encontraron artículos para &quot;{query}&quot;.
         </div>
       )}
     </div>

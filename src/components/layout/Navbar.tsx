@@ -12,10 +12,11 @@ export function Navbar() {
           <span className="font-bold text-xl tracking-tight">AutoBlog</span>
         </Link>
         <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
-          <Link href="/blog" className="hover:text-brand transition-colors">All Posts</Link>
-          <Link href="/category/buying-guides" className="hover:text-brand transition-colors">Guides</Link>
-          <Link href="/category/electric-vehicles" className="hover:text-brand transition-colors">Electric</Link>
-          <Link href="/about" className="hover:text-brand transition-colors">About</Link>
+          <Link href="/blog" className="hover:text-brand transition-colors">Artículos</Link>
+          <Link href="/peliculas" className="hover:text-brand transition-colors">Películas</Link>
+          <Link href="/categoria/guias-de-compra" className="hover:text-brand transition-colors">Guías</Link>
+          <Link href="/categoria/vehiculos-electricos" className="hover:text-brand transition-colors">Eléctricos</Link>
+          <Link href="/about" className="hover:text-brand transition-colors">Nosotros</Link>
         </nav>
         <div className="flex items-center gap-4">
           <SearchBar />

@@ -15,7 +15,7 @@ export default function BlogIndex() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <Breadcrumbs items={[{ label: "Blog", href: "/blog" }]} />
+      <Breadcrumbs items={[{ label: "Artículos", href: "/blog" }]} />
       
       <AdComponent slotId="blog-top-banner" className="mb-10" />
 

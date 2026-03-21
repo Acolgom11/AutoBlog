@@ -1,56 +1,50 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { Metadata } from "next";
-import { CalendarDays, Clock, User } from "lucide-react";
+import { CalendarDays, Clock, User, Cog, Film, Zap, Gauge } from "lucide-react";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
 
-import { getArticleBySlug, getArticleSlugs, getAllArticles, GenericResult, ArticleData } from "@/lib/mdx";
+import { getMovieBySlug, getMovieSlugs } from "@/lib/mdx";
 import { AdComponent } from "@/components/ads/AdComponent";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { Sidebar } from "@/components/layout/Sidebar";
-import { ArticleCard } from "@/components/ui/ArticleCard";
 import { TableOfContents } from "@/components/ui/TableOfContents";
 
-export const revalidate = 3600; // ISR validation
+export const revalidate = 3600;
 
 export async function generateStaticParams() {
-  const slugs = getArticleSlugs();
+  const slugs = getMovieSlugs();
   return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const resolvedParams = await params;
-  const article = getArticleBySlug(resolvedParams.slug);
-  if (!article) return { title: "Not Found" };
+  const movie = getMovieBySlug(resolvedParams.slug);
+  if (!movie) return { title: "Película No Encontrada" };
 
   return {
-    title: `${article.data.title} | AutoBlog`,
-    description: article.data.description,
+    title: `${movie.data.title} | AutoBlog Películas`,
+    description: movie.data.description,
     openGraph: {
-      title: article.data.title,
-      description: article.data.description,
-      images: [article.data.imageUrl],
+      title: movie.data.title,
+      description: movie.data.description,
+      images: [movie.data.imageUrl],
       type: "article",
     },
   };
 }
 
-export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
+export default async function MoviePost({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
-  const articleResult: GenericResult<ArticleData> | null = getArticleBySlug(resolvedParams.slug);
+  const movieResult = getMovieBySlug(resolvedParams.slug);
 
-  if (!articleResult) {
+  if (!movieResult) {
     notFound();
   }
 
-  const { data, content, toc } = articleResult;
-
-  const allArticles = getAllArticles();
-  const relatedArticles = allArticles
-    .filter((a) => a.category === data.category && a.slug !== data.slug)
-    .slice(0, 3);
+  const { data, content, toc, faqSchema } = movieResult;
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -71,20 +65,20 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
       {
         "@type": "ListItem",
         "position": 1,
-        "name": "Home",
+        "name": "Inicio",
         "item": "https://www.autoblog.com/"
       },
       {
         "@type": "ListItem",
         "position": 2,
-        "name": data.category,
-        "item": `https://www.autoblog.com/categoria/${data.category.toLowerCase().replace(/ /g, "-")}`
+        "name": "Películas",
+        "item": "https://www.autoblog.com/peliculas"
       },
       {
         "@type": "ListItem",
         "position": 3,
         "name": data.title,
-        "item": `https://www.autoblog.com/blog/${data.slug}`
+        "item": `https://www.autoblog.com/peliculas/${data.slug}`
       }
     ]
   };
@@ -93,21 +87,25 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
     <div className="container mx-auto px-4 py-8">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
+      {faqSchema && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      )}
 
       <Breadcrumbs
         items={[
-          { label: data.category, href: `/categoria/${data.category.toLowerCase().replace(" ", "-")}` },
-          { label: data.title, href: `/blog/${data.slug}` },
+          { label: "Películas", href: `/peliculas` },
+          { label: data.title, href: `/peliculas/${data.slug}` },
         ]}
       />
 
-      <AdComponent slotId="article-top-banner" className="mb-8" />
+      <AdComponent slotId="peliculas-top-banner" className="mb-8" />
 
       <div className="flex flex-col lg:flex-row gap-12">
         <article className="flex-1 max-w-3xl min-w-0">
           <header className="mb-8 space-y-4">
-            <span className="inline-block rounded-full bg-brand/10 px-3 py-1 text-xs font-medium text-brand">
-              {data.category}
+            <span className="inline-block rounded-full bg-brand/10 px-3 py-1 text-xs font-bold text-brand uppercase tracking-wider flex items-center justify-center gap-1 w-max">
+              <Film className="w-3.5 h-3.5" />
+              {data.movie}
             </span>
             <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight leading-tight">
               {data.title}
@@ -145,6 +143,51 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
             />
           </figure>
 
+          {/* Custom Specification Dashboard for Movies */}
+          <div className="bg-card border border-border shadow-sm rounded-xl p-8 mb-10 grid grid-cols-1 sm:grid-cols-2 gap-8">
+            <h2 className="text-2xl font-extrabold sm:col-span-2 mb-2 border-b border-border pb-4 tracking-tight">Ficha Técnica Oficial</h2>
+            
+            <div className="flex items-start gap-4">
+               <div className="bg-brand/10 w-12 h-12 rounded-full flex items-center justify-center shrink-0">
+                  <Cog className="w-6 h-6 text-brand" />
+               </div>
+               <div>
+                  <dt className="text-sm text-muted-foreground font-bold uppercase tracking-wider mb-1">Motor</dt>
+                  <dd className="font-semibold text-foreground text-lg">{data.engine}</dd>
+               </div>
+            </div>
+
+            <div className="flex items-start gap-4">
+               <div className="bg-brand/10 w-12 h-12 rounded-full flex items-center justify-center shrink-0">
+                  <Zap className="w-6 h-6 text-brand" />
+               </div>
+               <div>
+                  <dt className="text-sm text-muted-foreground font-bold uppercase tracking-wider mb-1">Potencia</dt>
+                  <dd className="font-semibold text-foreground text-lg">{data.horsepower}</dd>
+               </div>
+            </div>
+
+            <div className="flex items-start gap-4">
+               <div className="bg-brand/10 w-12 h-12 rounded-full flex items-center justify-center shrink-0">
+                  <Gauge className="w-6 h-6 text-brand" />
+               </div>
+               <div>
+                  <dt className="text-sm text-muted-foreground font-bold uppercase tracking-wider mb-1">Velocidad Máxima</dt>
+                  <dd className="font-semibold text-foreground text-lg">{data.topSpeed}</dd>
+               </div>
+            </div>
+
+            <div className="flex items-start gap-4 sm:col-span-2">
+               <div className="bg-brand/10 w-12 h-12 rounded-full flex items-center justify-center shrink-0">
+                  <span className="font-bold text-brand text-xl">🔧</span>
+               </div>
+               <div className="flex-1">
+                  <dt className="text-sm text-muted-foreground font-bold uppercase tracking-wider mb-1">Modificaciones Principales</dt>
+                  <dd className="font-medium text-foreground text-lg leading-relaxed bg-muted/50 p-4 rounded-lg border border-border/50">{data.modifications}</dd>
+               </div>
+            </div>
+          </div>
+
           <div className="md:hidden">
             <TableOfContents items={toc} />
           </div>
@@ -166,36 +209,10 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
           </div>
 
           <AdComponent slotId="article-bottom" className="mt-16 mb-8" />
-
-          <div className="mt-12 p-8 bg-card border border-border rounded-xl flex items-start gap-6 shadow-sm">
-            <div className="bg-muted w-20 h-20 rounded-full flex items-center justify-center flex-shrink-0">
-              <User className="h-10 w-10 text-muted-foreground" />
-            </div>
-            <div>
-              <h3 className="font-bold text-xl mb-2">About {data.author}</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                AutoBlog Editor is an automotive enthusiast with over 10 years of experience testing and reviewing the latest cars on the market. Focused on delivering objective, comprehensive analysis for every buyer.
-              </p>
-            </div>
-          </div>
         </article>
 
         <Sidebar />
       </div>
-
-      {relatedArticles.length > 0 && (
-        <div className="mt-20 pt-16 border-t border-border">
-          <h2 className="text-3xl font-bold mb-10 flex items-center gap-2">
-            <span className="bg-brand w-2 h-8 rounded-full inline-block"></span>
-            Related Posts
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {relatedArticles.map((relArticle) => (
-               <ArticleCard key={relArticle.slug} {...relArticle} />
-            ))}
-          </div>
-        </div>
-      )}
     </div>
   );
 }

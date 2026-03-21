@@ -11,27 +11,27 @@ export function Footer() {
             <span className="font-bold text-xl tracking-tight">AutoBlog</span>
           </Link>
           <p className="text-sm text-muted-foreground leading-relaxed">
-            Your ultimate source for objective reviews, automotive news, and comprehensive buying guides. 
+            Tu fuente definitiva de reseñas objetivas, noticias del motor y guías de compra exhaustivas.
           </p>
         </div>
         <div>
-          <h3 className="font-semibold mb-4 text-foreground">Categories</h3>
+          <h3 className="font-semibold mb-4 text-foreground">Categorías</h3>
           <ul className="space-y-2 text-sm text-muted-foreground">
-            <li><Link href="/category/reviews" className="hover:text-brand transition-colors">Car Reviews</Link></li>
-            <li><Link href="/category/electric" className="hover:text-brand transition-colors">Electric Vehicles</Link></li>
-            <li><Link href="/category/budget" className="hover:text-brand transition-colors">Budget Options</Link></li>
+            <li><Link href="/categoria/resenas-de-coches" className="hover:text-brand transition-colors">Reseñas de Coches</Link></li>
+            <li><Link href="/categoria/vehiculos-electricos" className="hover:text-brand transition-colors">Vehículos Eléctricos</Link></li>
+            <li><Link href="/categoria/opciones-economicas" className="hover:text-brand transition-colors">Opciones Económicas</Link></li>
           </ul>
         </div>
         <div>
-          <h3 className="font-semibold mb-4 text-foreground">Company</h3>
+          <h3 className="font-semibold mb-4 text-foreground">Compañía</h3>
           <ul className="space-y-2 text-sm text-muted-foreground">
-            <li><Link href="/about" className="hover:text-brand transition-colors">About Us</Link></li>
-            <li><Link href="/contact" className="hover:text-brand transition-colors">Contact</Link></li>
-            <li><Link href="/privacy" className="hover:text-brand transition-colors">Privacy Policy</Link></li>
+            <li><Link href="/about" className="hover:text-brand transition-colors">Sobre Nosotros</Link></li>
+            <li><Link href="/contact" className="hover:text-brand transition-colors">Contacto</Link></li>
+            <li><Link href="/privacy" className="hover:text-brand transition-colors">Política de Privacidad</Link></li>
           </ul>
         </div>
         <div>
-          <h3 className="font-semibold mb-4 text-foreground">Follow Us</h3>
+          <h3 className="font-semibold mb-4 text-foreground">Síguenos</h3>
           <ul className="space-y-2 text-sm text-muted-foreground">
             <li><a href="#" className="hover:text-brand transition-colors">Twitter</a></li>
             <li><a href="#" className="hover:text-brand transition-colors">Instagram</a></li>
@@ -40,7 +40,7 @@ export function Footer() {
         </div>
       </div>
       <div className="container mx-auto px-4 mt-12 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-        © {new Date().getFullYear()} AutoBlog. All rights reserved.
+        © {new Date().getFullYear()} AutoBlog. Todos los derechos reservados.
       </div>
     </footer>
   );

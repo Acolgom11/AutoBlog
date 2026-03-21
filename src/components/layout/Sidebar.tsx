@@ -10,11 +10,11 @@ export function Sidebar() {
   return (
     <aside className="space-y-8 lg:w-80 flex-shrink-0 w-full hidden md:block">
       <div className="rounded-xl border border-border bg-card p-6 shadow-sm">
-        <h3 className="font-bold text-lg mb-4">Categories</h3>
+        <h3 className="font-bold text-lg mb-4">Categorías</h3>
         <ul className="space-y-3">
           {categories.map((category) => (
              <li key={category.name}>
-                <Link href={`/category/${category.slug}`} className="group flex items-center justify-between py-1 transition-colors">
+                <Link href={`/categoria/${category.slug}`} className="group flex items-center justify-between py-1 transition-colors">
                   <span className="text-muted-foreground group-hover:text-brand font-medium">{category.name}</span>
                   <span className="flex items-center text-xs text-muted-foreground">
                     <span className="bg-muted px-2 py-0.5 rounded-full mr-2 group-hover:bg-brand/10 group-hover:text-brand transition-colors">{category.count}</span>
@@ -30,7 +30,7 @@ export function Sidebar() {
 
       <div className="sticky top-24">
         <div className="rounded-xl border border-border bg-card p-6 shadow-sm">
-          <h3 className="font-bold text-lg mb-4 text-center">Sponsored</h3>
+          <h3 className="font-bold text-lg mb-4 text-center">Patrocinado</h3>
           <AdComponent slotId="sidebar-1" className="!my-0 w-full" />
         </div>
       </div>
