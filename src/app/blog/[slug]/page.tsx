@@ -12,6 +12,13 @@ import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { ArticleCard } from "@/components/ui/ArticleCard";
 import { TableOfContents } from "@/components/ui/TableOfContents";
+import { Ad } from "@/components/mdx/Ad";
+import dynamic from "next/dynamic";
+import { RelatedPostsSkeleton } from "@/components/blog/RelatedPosts";
+
+const RelatedPosts = dynamic(() => import("@/components/blog/RelatedPosts"), {
+  loading: () => <RelatedPostsSkeleton />
+});
 
 export const revalidate = 3600; // ISR validation
 
@@ -78,7 +85,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         "@type": "ListItem",
         "position": 2,
         "name": data.category,
-        "item": `https://www.autoblog.com/categoria/${data.category.toLowerCase().replace(/ /g, "-")}`
+        "item": `https://www.autoblog.com/categorias/${data.category.toLowerCase().replace(/ /g, "-")}`
       },
       {
         "@type": "ListItem",
@@ -96,7 +103,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
 
       <Breadcrumbs
         items={[
-          { label: data.category, href: `/categoria/${data.category.toLowerCase().replace(" ", "-")}` },
+          { label: data.category, href: `/categorias/${data.category.toLowerCase().replace(" ", "-")}` },
           { label: data.title, href: `/blog/${data.slug}` },
         ]}
       />
@@ -153,9 +160,10 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
              <TableOfContents items={toc} />
           </div>
 
-          <div className="prose prose-lg dark:prose-invert max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-a:text-brand hover:prose-a:text-brand-hover prose-headings:scroll-mt-24">
+          <div className="prose prose-lg dark:prose-invert max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-a:text-brand hover:prose-a:text-brand-hover prose-headings:scroll-mt-24 prose-table:w-full prose-table:min-w-full prose-th:bg-muted/50 prose-th:p-4 prose-td:p-4 prose-td:border-b prose-td:border-border">
              <MDXRemote 
                 source={content} 
+                components={{ Ad }}
                 options={{
                   mdxOptions: {
                     remarkPlugins: [remarkGfm],
@@ -183,19 +191,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         <Sidebar />
       </div>
 
-      {relatedArticles.length > 0 && (
-        <div className="mt-20 pt-16 border-t border-border">
-          <h2 className="text-3xl font-bold mb-10 flex items-center gap-2">
-            <span className="bg-brand w-2 h-8 rounded-full inline-block"></span>
-            Related Posts
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {relatedArticles.map((relArticle) => (
-               <ArticleCard key={relArticle.slug} {...relArticle} />
-            ))}
-          </div>
-        </div>
-      )}
+      <RelatedPosts articles={relatedArticles} />
     </div>
   );
 }

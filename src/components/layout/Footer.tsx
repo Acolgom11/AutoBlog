@@ -17,17 +17,17 @@ export function Footer() {
         <div>
           <h3 className="font-semibold mb-4 text-foreground">Categorías</h3>
           <ul className="space-y-2 text-sm text-muted-foreground">
-            <li><Link href="/categoria/resenas-de-coches" className="hover:text-brand transition-colors">Reseñas de Coches</Link></li>
-            <li><Link href="/categoria/vehiculos-electricos" className="hover:text-brand transition-colors">Vehículos Eléctricos</Link></li>
-            <li><Link href="/categoria/opciones-economicas" className="hover:text-brand transition-colors">Opciones Económicas</Link></li>
+            <li><Link href="/categorias/resenas-de-coches" className="hover:text-brand transition-colors">Reseñas de Coches</Link></li>
+            <li><Link href="/categorias/vehiculos-electricos" className="hover:text-brand transition-colors">Vehículos Eléctricos</Link></li>
+            <li><Link href="/categorias/opciones-economicas" className="hover:text-brand transition-colors">Opciones Económicas</Link></li>
           </ul>
         </div>
         <div>
           <h3 className="font-semibold mb-4 text-foreground">Compañía</h3>
           <ul className="space-y-2 text-sm text-muted-foreground">
-            <li><Link href="/about" className="hover:text-brand transition-colors">Sobre Nosotros</Link></li>
+            <li><Link href="/sobre-mi" className="hover:text-brand transition-colors">Sobre Nosotros</Link></li>
             <li><Link href="/contact" className="hover:text-brand transition-colors">Contacto</Link></li>
-            <li><Link href="/privacy" className="hover:text-brand transition-colors">Política de Privacidad</Link></li>
+            <li><Link href="/privacidad" className="hover:text-brand transition-colors">Política de Privacidad</Link></li>
           </ul>
         </div>
         <div>

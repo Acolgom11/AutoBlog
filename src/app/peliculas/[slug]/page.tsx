@@ -11,6 +11,7 @@ import { AdComponent } from "@/components/ads/AdComponent";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { TableOfContents } from "@/components/ui/TableOfContents";
+import { Ad } from "@/components/mdx/Ad";
 
 export const revalidate = 3600;
 
@@ -196,9 +197,10 @@ export default async function MoviePost({ params }: { params: Promise<{ slug: st
              <TableOfContents items={toc} />
           </div>
 
-          <div className="prose prose-lg dark:prose-invert max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-a:text-brand hover:prose-a:text-brand-hover prose-headings:scroll-mt-24">
+          <div className="prose prose-lg dark:prose-invert max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-a:text-brand hover:prose-a:text-brand-hover prose-headings:scroll-mt-24 prose-table:w-full prose-table:min-w-full prose-th:bg-muted/50 prose-th:p-4 prose-td:p-4 prose-td:border-b prose-td:border-border">
              <MDXRemote 
                 source={content} 
+                components={{ Ad }}
                 options={{
                   mdxOptions: {
                     remarkPlugins: [remarkGfm],

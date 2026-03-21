@@ -14,7 +14,7 @@ export function Sidebar() {
         <ul className="space-y-3">
           {categories.map((category) => (
              <li key={category.name}>
-                <Link href={`/categoria/${category.slug}`} className="group flex items-center justify-between py-1 transition-colors">
+                <Link href={`/categorias/${category.slug}`} className="group flex items-center justify-between py-1 transition-colors">
                   <span className="text-muted-foreground group-hover:text-brand font-medium">{category.name}</span>
                   <span className="flex items-center text-xs text-muted-foreground">
                     <span className="bg-muted px-2 py-0.5 rounded-full mr-2 group-hover:bg-brand/10 group-hover:text-brand transition-colors">{category.count}</span>

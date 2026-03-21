@@ -16,7 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   const categories = categoriesObj.map((category) => ({
-    url: `${baseUrl}/categoria/${category.slug}`,
+    url: `${baseUrl}/categorias/${category.slug}`,
     lastModified: new Date(),
     changeFrequency: "daily" as const,
     priority: 0.9,
