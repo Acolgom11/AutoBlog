@@ -15,7 +15,7 @@ export const mockArticles: Article[] = [
     category: "Budget Options",
     date: "Mar 15, 2026",
     readTime: "6 min read",
-    imageUrl: "https://unsplash.com/es/fotos/coupe-deportivo-rojo-rodeado-de-vehiculos-d22EgbYSjQc",
+    imageUrl: "https://images.unsplash.com/photo-1503376710356-70d6943486df?q=80&w=800&auto=format&fit=crop",
     slug: "best-cars-under-10000"
   },
   {
